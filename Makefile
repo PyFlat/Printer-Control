@@ -6,10 +6,16 @@ STATE    := $(PROJECT)/.macrodeck-dev-state
 UTF8     := $(if $(filter Windows_NT,$(OS)),chcp.com 65001 >/dev/null &&)
 RUN      := $(UTF8) macrodeck-plugin run --project $(PROJECT) --state-directory $(STATE)
 
+# The SDK version, for keeping the macrodeck-plugin CLI in step. Read inside recipes rather than with
+# $(shell): GnuWin32's make 3.81 sometimes runs $(shell) with an empty command line.
 SDK      := grep 'MacroDeckSdkVersion Condition' Directory.Packages.props | cut -d'>' -f2 | cut -d'<' -f1
 TESTS    := dotnet test PrinterControl.slnx --configuration Release
 
-RID      := $(if $(filter Windows_NT,$(OS)),win-x64,$(if $(filter Darwin,$(shell uname -s)),osx-arm64,linux-x64))
+RID      := $(if $(filter Windows_NT,$(OS)),win-x64,$(if $(filter Linux,$(shell uname -s)),linux-x64,osx-arm64))
+# Shared by pack and release. release must not call $(MAKE): make runs such a line even under -n.
+PACK     := rm -f artifacts/*.macroDeckPlugin && \
+            macrodeck-plugin build --source $(PROJECT) --rid $(RID) --output ./artifacts && \
+            macrodeck-plugin inspect --artifact "$$(ls artifacts/*.macroDeckPlugin)"
 
 # Store images: every [UiPreview] scenario at each deck shape. Override on the command line,
 # e.g. make preview CELLS="--cells 2x2" PREVIEW_ARGS="--theme light". STORE=1 then pads each one onto a
@@ -41,8 +47,8 @@ help:
 	@echo "make conformance    run the conformance suite, report in conformance.md"
 	@echo "make local-sdk      pack the SDK from a Macro Deck checkout (MACRODECK=$(MACRODECK)) into local-feed/"
 	@echo "make update         bump every package to its newest release (review the diff)"
-	@echo "make release VERSION=x.y.z"
-	@echo "                    test + pack, bump manifest.json, commit, tag vx.y.z, push"
+	@echo "make release [VERSION=x.y.z]"
+	@echo "                    test + pack, bump manifest.json only if VERSION differs, tag, push"
 
 cli:
 	dotnet tool update --global MacroDeck.Plugin.Cli --version "$$($(SDK))"
@@ -68,9 +74,7 @@ preview:
 	$(if $(STORE),dotnet run tools/StoreCanvas.cs -- $(PREVIEWS))
 
 pack:
-	rm -f artifacts/*.macroDeckPlugin
-	macrodeck-plugin build --source $(PROJECT) --rid $(RID) --output ./artifacts
-	macrodeck-plugin inspect --artifact "$$(ls artifacts/*.macroDeckPlugin)"
+	$(PACK)
 
 conformance:
 	macrodeck-plugin test --project $(PROJECT) --report markdown --output conformance.md
@@ -84,19 +88,34 @@ local-sdk:
 update:
 	dotnet package update
 
+# Pushing the tag starts .github/workflows/release.yml, which checks the manifest version against the
+# tag, creates the GitHub release and publishes to the Creator Portal. Without VERSION the manifest's own
+# version is released as is; a VERSION that differs is bumped first. Everything that can fail runs before
+# the bump commit, so a failed check leaves nothing to undo.
 release:
-	@case "$(VERSION)" in \
+	@set -e; \
+	git pull --ff-only; \
+	current="$$(sed -n 's/^  "version": "\(.*\)",$$/\1/p' $(MANIFEST))"; \
+	version="$(VERSION)"; [ -n "$$version" ] || version="$$current"; \
+	case "$$version" in \
 	  [0-9]*.[0-9]*.[0-9]*) ;; \
-	  *) echo "usage: make release VERSION=x.y.z (current: $$(sed -n 's/^  "version": "\(.*\)",$$/\1/p' $(MANIFEST)))"; exit 1 ;; \
-	esac
-	@test "$$(git rev-parse --abbrev-ref HEAD)" = main || { echo "release from main only"; exit 1; }
-	@test -z "$$(git status --porcelain)" || { echo "working tree is not clean"; exit 1; }
-	@! git rev-parse -q --verify "refs/tags/v$(VERSION)" >/dev/null || { echo "tag v$(VERSION) already exists"; exit 1; }
-	git pull --ff-only
-	$(TESTS)
-	$(MAKE) pack
-	sed -i 's/^  "version": ".*",$$/  "version": "$(VERSION)",/' $(MANIFEST)
-	@grep -q '^  "version": "$(VERSION)",$$' $(MANIFEST) || { echo "could not set the version in $(MANIFEST)"; git checkout -- $(MANIFEST); exit 1; }
-	git commit -m "chore: bump version" -- $(MANIFEST)
-	git tag v$(VERSION)
-	git push --atomic origin main v$(VERSION)
+	  *) echo "usage: make release [VERSION=x.y.z] (manifest: $$current)"; exit 1 ;; \
+	esac; \
+	test "$$(git rev-parse --abbrev-ref HEAD)" = main || { echo "release from main only"; exit 1; }; \
+	test -z "$$(git status --porcelain)" || { echo "working tree is not clean"; exit 1; }; \
+	git fetch --tags --quiet origin; \
+	! git rev-parse -q --verify "refs/tags/v$$version" >/dev/null || { echo "tag v$$version already exists"; exit 1; }; \
+	latest="$$(git tag -l 'v[0-9]*' | sed 's/^v//' | sort -V | tail -n 1)"; \
+	if [ -n "$$latest" ] && [ "$$(printf '%s\n%s\n' "$$latest" "$$version" | sort -V | tail -n 1)" != "$$version" ]; then \
+	  echo "v$$version is not newer than the latest release v$$latest"; exit 1; \
+	fi; \
+	echo "releasing v$$version (latest release: v$${latest:-none}, manifest: $$current)"; \
+	$(TESTS); \
+	$(PACK); \
+	if [ "$$version" != "$$current" ]; then \
+	  sed -i.bak 's/^  "version": ".*",$$/  "version": "'"$$version"'",/' $(MANIFEST); rm -f $(MANIFEST).bak; \
+	  grep -q "^  \"version\": \"$$version\",$$" $(MANIFEST) || { echo "could not set the version in $(MANIFEST)"; git checkout -- $(MANIFEST); exit 1; }; \
+	  git commit -m "chore: bump version to $$version" -- $(MANIFEST); \
+	fi; \
+	git tag "v$$version"; \
+	git push --atomic origin main "v$$version"
