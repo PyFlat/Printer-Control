@@ -1,0 +1,3 @@
+# LF everywhere, whatever the checkout's core.autocrlf. The release merges the per-platform packages,
+# which must carry byte-identical shared files (icon, manifest), and bash cannot run CRLF scripts.
+* text=auto eol=lf
