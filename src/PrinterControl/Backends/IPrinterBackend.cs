@@ -1,5 +1,6 @@
 using MacroDeck.Localization;
 using Microsoft.Extensions.DependencyInjection;
+using PrinterControl.Backends.Moonraker;
 using PrinterControl.Backends.OctoPrint;
 using PrinterControl.Core;
 using Serilog;
@@ -37,6 +38,7 @@ internal static class PrinterBackendRegistration
 	public static IServiceCollection AddPrinterBackends(this IServiceCollection services)
 	{
 		services.AddSingleton<IPrinterBackend, OctoPrintBackend>();
+		services.AddSingleton<IPrinterBackend, MoonrakerBackend>();
 		services.AddSingleton<PrinterBackends>();
 		services.AddSingleton<PrinterRegistry>();
 		return services;

@@ -3,8 +3,8 @@
 **Printer Control** is a Macro Deck 3 out-of-process plugin (Windows, macOS and Linux) that connects Macro
 Deck to 3D printers through the software that runs them: live printer state as variables and events,
 printer control as actions, a print status widget, and the printer webcam as a video stream (SDK
-3.0.0-beta.15). Each kind of printer software is a backend; OctoPrint is the only one shipped. A Moonraker
-backend waits on the `feature/moonraker` branch until it has been tested on a real Klipper printer.
+3.0.0-beta.15). Each kind of printer software is a backend: OctoPrint, and Moonraker on this branch, which
+merges once it has been tested on a real Klipper printer.
 [README.md](README.md) is the user-facing guide; this file is the rule set for changing the code. Keep it
 current when a rule stops matching reality.
 
@@ -26,6 +26,8 @@ src/PrinterControl/
     IPrinterSetup.cs              a backend's own setup steps after the address (signing in)
     OctoPrint/                    REST client, push frame parsing, sign-in (OctoPrintSetup: application
                                   keys or a pasted key), OctoPrintConnection, GPIO Control outputs
+    Moonraker/                    JSON-RPC websocket client, Klipper object state (MoonrakerStatus), setup
+                                  (trusted client or API key), MoonrakerConnection, power device outputs
   ConfigFlow/                     PrinterConfigFlow (name, address and webcam, recognizes the printer
                                   software, then runs its IPrinterSetup), ConfigKeys, PrinterConfigReader
   Actions/                        PrinterAction (printer picker, error mapping, ConfirmAsync) + actions
@@ -36,6 +38,7 @@ src/PrinterControl/
 tests/PrinterControl.Tests/
   Support/FakeOctoPrint.cs        a Kestrel fake of OctoPrint's REST API, application keys, GPIO Control
                                   and push socket
+  Support/FakeMoonraker.cs        a Kestrel fake of Moonraker's HTTP info endpoints and JSON-RPC websocket
   Support/IFakePrinterServer.cs   what the backend contract needs from a fake, FakeServerHost, NotAPrinterServer
   Backends/BackendContract.cs     the tests every backend passes against its fake; AllFakeServers
   Backends/Example/               a minimal polling backend, its fake and contract tests: the template
@@ -96,6 +99,20 @@ backend type leaks into actions, variables, events or the UI.
 - OctoPrint 1.9 moved the webcam settings to `plugins.classicwebcam`; older servers use `webcam`. Both are read.
 - OctoPrint reports a cancel as `PrintCancelled` and again as `PrintFailed` with reason `cancelled`; only
   the first becomes `print-cancelled` (`PushMessages.ReadEvent`).
+
+**Moonraker.** Written against the documented API (https://moonraker.readthedocs.io), not yet tried on
+a real printer.
+
+- Everything after setup goes over the websocket (`MoonrakerRpc`); the API key is in the handshake.
+  Klippy's state comes from `server.info` and the `notify_klippy_*` notifications, not from the `webhooks`
+  object, which Moonraker documents as unreliable for that. While Klippy is ready, the printer objects come
+  from a subscription; `notify_status_update` only carries changed fields (`MoonrakerStatus.Merge`).
+- `printer.gcode.script` answers only once the G-code ran, so G-code waits 1 s for a refusal and then
+  answers sent (`CallWithoutWaitingAsync`); a homing move would otherwise time out.
+- Klipper has no job events: they follow from `print_stats.state` changing (`MoonrakerConnection.PrintEvent`).
+- Heaters: `extruder`, `extruder1`, `heater_bed`, and a chamber as `heater_generic chamber` (settable) or
+  `temperature_sensor chamber` (read only) (`MoonrakerHeaters`).
+- Power devices have no documented change notification, so they are read every 2 s while there are any.
 
 **Actions.**
 
