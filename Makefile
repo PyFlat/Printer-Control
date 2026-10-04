@@ -92,6 +92,7 @@ update:
 # tag, creates the GitHub release and publishes to the Creator Portal. Without VERSION the manifest's own
 # version is released as is; a VERSION that differs is bumped first. Everything that can fail runs before
 # the bump commit, so a failed check leaves nothing to undo.
+# Versions are ordered by git and awk: under cmd, sort can be Windows' sort.exe, which has no -V.
 release:
 	@set -e; \
 	git pull --ff-only; \
@@ -105,8 +106,9 @@ release:
 	test -z "$$(git status --porcelain)" || { echo "working tree is not clean"; exit 1; }; \
 	git fetch --tags --quiet origin; \
 	! git rev-parse -q --verify "refs/tags/v$$version" >/dev/null || { echo "tag v$$version already exists"; exit 1; }; \
-	latest="$$(git tag -l 'v[0-9]*' | sed 's/^v//' | sort -V | tail -n 1)"; \
-	if [ -n "$$latest" ] && [ "$$(printf '%s\n%s\n' "$$latest" "$$version" | sort -V | tail -n 1)" != "$$version" ]; then \
+	latest="$$(git tag -l 'v[0-9]*' --sort=v:refname | tail -n 1 | sed 's/^v//')"; \
+	newer="$$(awk -v a="$$version" -v b="$$latest" 'BEGIN { split(a, x, "."); split(b, y, "."); for (i = 1; i <= 3; i++) if (x[i] + 0 != y[i] + 0) { print (x[i] + 0 > y[i] + 0 ? "yes" : "no"); exit } print "no" }')"; \
+	if [ -n "$$latest" ] && [ "$$newer" != yes ]; then \
 	  echo "v$$version is not newer than the latest release v$$latest"; exit 1; \
 	fi; \
 	echo "releasing v$$version (latest release: v$${latest:-none}, manifest: $$current)"; \
