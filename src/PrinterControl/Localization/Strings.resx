@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- The default-language file. Every translation (Strings.<culture>.resx) is checked against it. -->
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Setup.Connection.Title" xml:space="preserve">
+    <value>Add a printer</value>
+  </data>
+  <data name="Setup.Connection.Description" xml:space="preserve">
+    <value>Enter the address you open your printer's web interface at. Printer Control recognizes the printer software by itself.</value>
+  </data>
+  <data name="Setup.Connection.Name.Label" xml:space="preserve">
+    <value>Printer name</value>
+  </data>
+  <data name="Setup.Connection.Name.Description" xml:space="preserve">
+    <value>How the printer is called in Macro Deck. Leave empty to use the name set in the printer software.</value>
+  </data>
+  <data name="Setup.Connection.Url.Label" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Setup.Connection.Url.Description" xml:space="preserve">
+    <value>For example http://octopi.local or http://192.168.1.20:5000.</value>
+  </data>
+  <data name="Setup.Connection.Url.Invalid" xml:space="preserve">
+    <value>Enter an http:// or https:// address, for example http://octopi.local.</value>
+  </data>
+  <data name="Setup.Connection.WebcamUrl.Label" xml:space="preserve">
+    <value>Webcam stream address</value>
+  </data>
+  <data name="Setup.Connection.WebcamUrl.Description" xml:space="preserve">
+    <value>An MJPEG stream to show instead of the one configured in the printer software.</value>
+  </data>
+  <data name="Setup.Errors.Unreachable" xml:space="preserve">
+    <value>Nothing could be reached at this address. Check that the printer server is running and the address is right.</value>
+  </data>
+  <data name="Setup.Errors.Unsupported" xml:space="preserve">
+    <value>This address answers, but not with printer software Printer Control supports.</value>
+  </data>
+  <data name="Setup.OctoPrint.SignIn.Title" xml:space="preserve">
+    <value>Sign in to OctoPrint</value>
+  </data>
+  <data name="Setup.OctoPrint.SignIn.Description" xml:space="preserve">
+    <value>Macro Deck needs access to this OctoPrint to control the printer.</value>
+  </data>
+  <data name="Setup.OctoPrint.Auth.Label" xml:space="preserve">
+    <value>Sign in with</value>
+  </data>
+  <data name="Setup.OctoPrint.Auth.AppKeys" xml:space="preserve">
+    <value>Approve in OctoPrint (recommended)</value>
+  </data>
+  <data name="Setup.OctoPrint.Auth.ApiKey" xml:space="preserve">
+    <value>Paste an API key</value>
+  </data>
+  <data name="Setup.OctoPrint.Auth.Keep" xml:space="preserve">
+    <value>Keep the current key</value>
+  </data>
+  <data name="Setup.OctoPrint.ApiKey.Label" xml:space="preserve">
+    <value>API key</value>
+  </data>
+  <data name="Setup.OctoPrint.ApiKey.Description" xml:space="preserve">
+    <value>Create one in OctoPrint under Settings &gt; Application Keys.</value>
+  </data>
+  <data name="Setup.OctoPrint.User.Label" xml:space="preserve">
+    <value>OctoPrint user</value>
+  </data>
+  <data name="Setup.OctoPrint.User.Description" xml:space="preserve">
+    <value>Only offer the approval to this OctoPrint user. Leave empty to let any administrator approve.</value>
+  </data>
+  <data name="Setup.OctoPrint.Authorize.Title" xml:space="preserve">
+    <value>Approve Macro Deck in OctoPrint</value>
+  </data>
+  <data name="Setup.OctoPrint.Authorize.Description" xml:space="preserve">
+    <value>OctoPrint is asking whether Macro Deck may control this printer.</value>
+  </data>
+  <data name="Setup.OctoPrint.Authorize.OpenOctoPrint" xml:space="preserve">
+    <value>Open OctoPrint in your browser and sign in.</value>
+  </data>
+  <data name="Setup.OctoPrint.Authorize.Allow" xml:space="preserve">
+    <value>In the "Access Request" dialog for Macro Deck, choose Allow.</value>
+  </data>
+  <data name="Setup.OctoPrint.Authorize.Continue" xml:space="preserve">
+    <value>Come back here and continue.</value>
+  </data>
+  <data name="Setup.OctoPrint.Authorize.Link" xml:space="preserve">
+    <value>Open OctoPrint</value>
+  </data>
+  <data name="Setup.OctoPrint.Authorize.StillPending" xml:space="preserve">
+    <value>OctoPrint has not been approved yet. Choose Allow in OctoPrint first.</value>
+  </data>
+  <data name="Setup.OctoPrint.Authorize.Denied" xml:space="preserve">
+    <value>The request was denied or has expired. Try again.</value>
+  </data>
+  <data name="Setup.OctoPrint.Errors.Unauthorized" xml:space="preserve">
+    <value>OctoPrint refused the API key.</value>
+  </data>
+  <data name="Setup.OctoPrint.Errors.AppKeysUnavailable" xml:space="preserve">
+    <value>This OctoPrint does not offer approving applications. Paste an API key instead.</value>
+  </data>
+  <data name="Setup.OctoPrint.Errors.Unexpected" xml:space="preserve">
+    <value>OctoPrint answered with an unexpected error. Check the Macro Deck log for details.</value>
+  </data>
+  <data name="Actions.Printer.Label" xml:space="preserve">
+    <value>Printer</value>
+  </data>
+  <data name="Actions.Printer.Description" xml:space="preserve">
+    <value>The printer to control.</value>
+  </data>
+  <data name="Actions.Printer.Placeholder" xml:space="preserve">
+    <value>The only printer</value>
+  </data>
+  <data name="Actions.Sent" xml:space="preserve">
+    <value>Sent to the printer.</value>
+  </data>
+  <data name="Actions.Job.Name" xml:space="preserve">
+    <value>Control print job</value>
+  </data>
+  <data name="Actions.Job.Description" xml:space="preserve">
+    <value>Pauses, resumes, cancels or starts the current print job.</value>
+  </data>
+  <data name="Actions.Job.Command" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="Actions.Job.TogglePause" xml:space="preserve">
+    <value>Pause or resume</value>
+  </data>
+  <data name="Actions.Job.Pause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="Actions.Job.Resume" xml:space="preserve">
+    <value>Resume</value>
+  </data>
+  <data name="Actions.Job.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Actions.Job.Start" xml:space="preserve">
+    <value>Start the selected file</value>
+  </data>
+  <data name="Actions.Job.Restart" xml:space="preserve">
+    <value>Restart from the beginning</value>
+  </data>
+  <data name="Actions.Job.Pausing" xml:space="preserve">
+    <value>The printer is pausing.</value>
+  </data>
+  <data name="Actions.Job.Resuming" xml:space="preserve">
+    <value>The printer is resuming.</value>
+  </data>
+  <data name="Actions.Job.Cancelling" xml:space="preserve">
+    <value>The printer is cancelling.</value>
+  </data>
+  <data name="Actions.Job.Starting" xml:space="preserve">
+    <value>The print is starting.</value>
+  </data>
+  <data name="Actions.PrintFile.Name" xml:space="preserve">
+    <value>Print a file</value>
+  </data>
+  <data name="Actions.PrintFile.Description" xml:space="preserve">
+    <value>Selects a file stored on the printer server and optionally starts printing it.</value>
+  </data>
+  <data name="Actions.PrintFile.File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Actions.PrintFile.Start" xml:space="preserve">
+    <value>Start printing</value>
+  </data>
+  <data name="Actions.SetTemperature.Name" xml:space="preserve">
+    <value>Set temperature</value>
+  </data>
+  <data name="Actions.SetTemperature.Description" xml:space="preserve">
+    <value>Sets the target temperature of the hotend, bed or chamber.</value>
+  </data>
+  <data name="Actions.SetTemperature.Heater" xml:space="preserve">
+    <value>Heater</value>
+  </data>
+  <data name="Actions.SetTemperature.Target" xml:space="preserve">
+    <value>Target temperature</value>
+  </data>
+  <data name="Actions.SetTemperature.TargetDescription" xml:space="preserve">
+    <value>In degrees Celsius. 0 turns the heater off.</value>
+  </data>
+  <data name="Actions.SetTemperature.Pending" xml:space="preserve">
+    <value>The printer has not confirmed the new target yet.</value>
+  </data>
+  <data name="Actions.Preheat.Name" xml:space="preserve">
+    <value>Preheat</value>
+  </data>
+  <data name="Actions.Preheat.Description" xml:space="preserve">
+    <value>Heats up with one of the printer's temperature presets, or cools everything down.</value>
+  </data>
+  <data name="Actions.Preheat.Profile" xml:space="preserve">
+    <value>Preset</value>
+  </data>
+  <data name="Actions.Preheat.CoolDown" xml:space="preserve">
+    <value>Cool down</value>
+  </data>
+  <data name="Actions.Preheat.UnknownProfile" xml:space="preserve">
+    <value>The printer has no temperature preset called {profile}.</value>
+  </data>
+  <data name="Heaters.Tool" xml:space="preserve">
+    <value>Hotend</value>
+  </data>
+  <data name="Heaters.Bed" xml:space="preserve">
+    <value>Bed</value>
+  </data>
+  <data name="Heaters.Chamber" xml:space="preserve">
+    <value>Chamber</value>
+  </data>
+  <data name="Actions.Home.Name" xml:space="preserve">
+    <value>Home axes</value>
+  </data>
+  <data name="Actions.Home.Description" xml:space="preserve">
+    <value>Moves the chosen axes to their home position.</value>
+  </data>
+  <data name="Actions.Home.Axes" xml:space="preserve">
+    <value>Axes</value>
+  </data>
+  <data name="Actions.Home.AxesDescription" xml:space="preserve">
+    <value>Leave empty to home all axes.</value>
+  </data>
+  <data name="Actions.Jog.Name" xml:space="preserve">
+    <value>Move print head</value>
+  </data>
+  <data name="Actions.Jog.Description" xml:space="preserve">
+    <value>Moves one axis by a distance relative to where it is.</value>
+  </data>
+  <data name="Actions.Jog.Axis" xml:space="preserve">
+    <value>Axis</value>
+  </data>
+  <data name="Actions.Jog.Distance" xml:space="preserve">
+    <value>Distance</value>
+  </data>
+  <data name="Actions.Jog.DistanceDescription" xml:space="preserve">
+    <value>In millimeters. Negative moves the other way.</value>
+  </data>
+  <data name="Actions.Jog.Speed" xml:space="preserve">
+    <value>Speed</value>
+  </data>
+  <data name="Actions.Jog.SpeedDescription" xml:space="preserve">
+    <value>In millimeters per minute. Leave empty for the printer profile's speed.</value>
+  </data>
+  <data name="Actions.Extrude.Name" xml:space="preserve">
+    <value>Extrude or retract</value>
+  </data>
+  <data name="Actions.Extrude.Description" xml:space="preserve">
+    <value>Pushes filament through the hotend, or pulls it back.</value>
+  </data>
+  <data name="Actions.Extrude.Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="Actions.Extrude.AmountDescription" xml:space="preserve">
+    <value>In millimeters. Negative retracts. The hotend must be hot.</value>
+  </data>
+  <data name="Actions.Fan.Name" xml:space="preserve">
+    <value>Set part cooling fan</value>
+  </data>
+  <data name="Actions.Fan.Description" xml:space="preserve">
+    <value>Sets the part cooling fan speed.</value>
+  </data>
+  <data name="Actions.Fan.Speed" xml:space="preserve">
+    <value>Speed (%)</value>
+  </data>
+  <data name="Actions.Rate.Name" xml:space="preserve">
+    <value>Set feed or flow rate</value>
+  </data>
+  <data name="Actions.Rate.Description" xml:space="preserve">
+    <value>Scales the print speed or the extruded amount while printing.</value>
+  </data>
+  <data name="Actions.Rate.Kind" xml:space="preserve">
+    <value>Rate</value>
+  </data>
+  <data name="Actions.Rate.Feed" xml:space="preserve">
+    <value>Feed rate (speed)</value>
+  </data>
+  <data name="Actions.Rate.Flow" xml:space="preserve">
+    <value>Flow rate (extrusion)</value>
+  </data>
+  <data name="Actions.Rate.Percent" xml:space="preserve">
+    <value>Percent</value>
+  </data>
+  <data name="Actions.Gcode.Name" xml:space="preserve">
+    <value>Send G-code</value>
+  </data>
+  <data name="Actions.Gcode.Description" xml:space="preserve">
+    <value>Sends G-code commands to the printer, one per line.</value>
+  </data>
+  <data name="Actions.Gcode.Commands" xml:space="preserve">
+    <value>Commands</value>
+  </data>
+  <data name="Actions.Gcode.CommandsDescription" xml:space="preserve">
+    <value>One command per line. Lines starting with ; are ignored.</value>
+  </data>
+  <data name="Actions.Connection.Name" xml:space="preserve">
+    <value>Connect printer</value>
+  </data>
+  <data name="Actions.Connection.Description" xml:space="preserve">
+    <value>Connects the server to the printer, or disconnects it.</value>
+  </data>
+  <data name="Actions.Connection.Command" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="Actions.Connection.Connect" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="Actions.Connection.Disconnect" xml:space="preserve">
+    <value>Disconnect</value>
+  </data>
+  <data name="Actions.Connection.Toggle" xml:space="preserve">
+    <value>Connect or disconnect</value>
+  </data>
+  <data name="Actions.Connection.Connecting" xml:space="preserve">
+    <value>The server is connecting to the printer.</value>
+  </data>
+  <data name="Actions.Connection.Disconnecting" xml:space="preserve">
+    <value>The server is disconnecting from the printer.</value>
+  </data>
+  <data name="Actions.SystemCommand.Name" xml:space="preserve">
+    <value>Run system command</value>
+  </data>
+  <data name="Actions.SystemCommand.Description" xml:space="preserve">
+    <value>Runs one of the server's system commands, such as restarting it or shutting down the Raspberry Pi.</value>
+  </data>
+  <data name="Actions.SystemCommand.Command" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="Actions.Output.Name" xml:space="preserve">
+    <value>Switch output</value>
+  </data>
+  <data name="Actions.Output.Description" xml:space="preserve">
+    <value>Turns a light, relay or other output of the printer on or off. On OctoPrint this needs the GPIO Control plugin.</value>
+  </data>
+  <data name="Actions.Output.Target" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="Actions.Output.TargetDescription" xml:space="preserve">
+    <value>One of the printer's outputs, such as its light.</value>
+  </data>
+  <data name="Actions.Output.State" xml:space="preserve">
+    <value>Switch</value>
+  </data>
+  <data name="Actions.Output.On" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="Actions.Output.Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="Actions.Output.Toggle" xml:space="preserve">
+    <value>Toggle</value>
+  </data>
+  <data name="Actions.Output.NoOutputs" xml:space="preserve">
+    <value>{printer} has no outputs to switch. On OctoPrint, install the GPIO Control plugin and set up an output.</value>
+  </data>
+  <data name="Actions.Output.UnknownOutput" xml:space="preserve">
+    <value>The chosen output is no longer set up on the printer.</value>
+  </data>
+  <data name="Errors.NoPrinter" xml:space="preserve">
+    <value>No printer is set up yet. Add one on the Printer Control integration page.</value>
+  </data>
+  <data name="Errors.PickPrinterFirst" xml:space="preserve">
+    <value>Choose a printer first.</value>
+  </data>
+  <data name="Errors.UnknownPrinter" xml:space="preserve">
+    <value>The chosen printer is no longer set up.</value>
+  </data>
+  <data name="Errors.Offline" xml:space="preserve">
+    <value>{printer} cannot be reached right now.</value>
+  </data>
+  <data name="Errors.PermissionDenied" xml:space="preserve">
+    <value>The printer server does not allow this with the configured key.</value>
+  </data>
+  <data name="Errors.NotReady" xml:space="preserve">
+    <value>The printer cannot do this right now, for example because it is not connected or is printing.</value>
+  </data>
+  <data name="Errors.NotFound" xml:space="preserve">
+    <value>The printer server could not find what this action refers to.</value>
+  </data>
+  <data name="Errors.Rejected" xml:space="preserve">
+    <value>The printer server rejected the request.</value>
+  </data>
+  <data name="Errors.NotSupported" xml:space="preserve">
+    <value>{printer} cannot do this.</value>
+  </data>
+  <data name="Errors.Unexpected" xml:space="preserve">
+    <value>The printer server answered with an unexpected error. Check the Macro Deck log for details.</value>
+  </data>
+  <data name="Errors.AlreadyPrinting" xml:space="preserve">
+    <value>The printer is busy with a print job.</value>
+  </data>
+  <data name="States.Connected" xml:space="preserve">
+    <value>Connected</value>
+  </data>
+  <data name="Status.Offline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="Status.Disconnected" xml:space="preserve">
+    <value>Not connected</value>
+  </data>
+  <data name="Status.Connecting" xml:space="preserve">
+    <value>Connecting</value>
+  </data>
+  <data name="Status.Operational" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="Status.Printing" xml:space="preserve">
+    <value>Printing</value>
+  </data>
+  <data name="Status.Pausing" xml:space="preserve">
+    <value>Pausing</value>
+  </data>
+  <data name="Status.Paused" xml:space="preserve">
+    <value>Paused</value>
+  </data>
+  <data name="Status.Resuming" xml:space="preserve">
+    <value>Resuming</value>
+  </data>
+  <data name="Status.Cancelling" xml:space="preserve">
+    <value>Cancelling</value>
+  </data>
+  <data name="Status.Finishing" xml:space="preserve">
+    <value>Finishing</value>
+  </data>
+  <data name="Status.Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Variables.Status" xml:space="preserve">
+    <value>{printer}: status</value>
+  </data>
+  <data name="Variables.State" xml:space="preserve">
+    <value>{printer}: state text</value>
+  </data>
+  <data name="Variables.Output" xml:space="preserve">
+    <value>{printer}: {output} on</value>
+  </data>
+  <data name="Variables.Online" xml:space="preserve">
+    <value>{printer}: server online</value>
+  </data>
+  <data name="Variables.Connected" xml:space="preserve">
+    <value>{printer}: printer connected</value>
+  </data>
+  <data name="Variables.Printing" xml:space="preserve">
+    <value>{printer}: printing</value>
+  </data>
+  <data name="Variables.Paused" xml:space="preserve">
+    <value>{printer}: paused</value>
+  </data>
+  <data name="Variables.Progress" xml:space="preserve">
+    <value>{printer}: progress</value>
+  </data>
+  <data name="Variables.File" xml:space="preserve">
+    <value>{printer}: file</value>
+  </data>
+  <data name="Variables.PrintTime" xml:space="preserve">
+    <value>{printer}: print time</value>
+  </data>
+  <data name="Variables.TimeLeft" xml:space="preserve">
+    <value>{printer}: time left</value>
+  </data>
+  <data name="Variables.Eta" xml:space="preserve">
+    <value>{printer}: finishes at</value>
+  </data>
+  <data name="Variables.EstimatedTime" xml:space="preserve">
+    <value>{printer}: estimated print time</value>
+  </data>
+  <data name="Variables.Z" xml:space="preserve">
+    <value>{printer}: Z height</value>
+  </data>
+  <data name="Variables.ToolTemp" xml:space="preserve">
+    <value>{printer}: hotend temperature</value>
+  </data>
+  <data name="Variables.ToolTarget" xml:space="preserve">
+    <value>{printer}: hotend target</value>
+  </data>
+  <data name="Variables.BedTemp" xml:space="preserve">
+    <value>{printer}: bed temperature</value>
+  </data>
+  <data name="Variables.BedTarget" xml:space="preserve">
+    <value>{printer}: bed target</value>
+  </data>
+  <data name="Variables.ChamberTemp" xml:space="preserve">
+    <value>{printer}: chamber temperature</value>
+  </data>
+  <data name="Variables.ChamberTarget" xml:space="preserve">
+    <value>{printer}: chamber target</value>
+  </data>
+  <data name="Variables.Error" xml:space="preserve">
+    <value>{printer}: error</value>
+  </data>
+  <data name="Events.PrintStarted.Name" xml:space="preserve">
+    <value>Print started</value>
+  </data>
+  <data name="Events.PrintStarted.Description" xml:space="preserve">
+    <value>A print job started.</value>
+  </data>
+  <data name="Events.PrintDone.Name" xml:space="preserve">
+    <value>Print finished</value>
+  </data>
+  <data name="Events.PrintDone.Description" xml:space="preserve">
+    <value>A print job finished successfully.</value>
+  </data>
+  <data name="Events.PrintFailed.Name" xml:space="preserve">
+    <value>Print failed</value>
+  </data>
+  <data name="Events.PrintFailed.Description" xml:space="preserve">
+    <value>A print job stopped because of an error.</value>
+  </data>
+  <data name="Events.PrintCancelled.Name" xml:space="preserve">
+    <value>Print cancelled</value>
+  </data>
+  <data name="Events.PrintCancelled.Description" xml:space="preserve">
+    <value>A print job was cancelled.</value>
+  </data>
+  <data name="Events.PrintPaused.Name" xml:space="preserve">
+    <value>Print paused</value>
+  </data>
+  <data name="Events.PrintPaused.Description" xml:space="preserve">
+    <value>A print job was paused.</value>
+  </data>
+  <data name="Events.PrintResumed.Name" xml:space="preserve">
+    <value>Print resumed</value>
+  </data>
+  <data name="Events.PrintResumed.Description" xml:space="preserve">
+    <value>A paused print job continued.</value>
+  </data>
+  <data name="Events.ProgressChanged.Name" xml:space="preserve">
+    <value>Print progress changed</value>
+  </data>
+  <data name="Events.ProgressChanged.Description" xml:space="preserve">
+    <value>The print progress reached the next whole percent.</value>
+  </data>
+  <data name="Events.StatusChanged.Name" xml:space="preserve">
+    <value>Printer status changed</value>
+  </data>
+  <data name="Events.StatusChanged.Description" xml:space="preserve">
+    <value>The printer changed status, for example from ready to printing.</value>
+  </data>
+  <data name="Events.PrinterConnected.Name" xml:space="preserve">
+    <value>Printer connected</value>
+  </data>
+  <data name="Events.PrinterConnected.Description" xml:space="preserve">
+    <value>The server connected to the printer.</value>
+  </data>
+  <data name="Events.PrinterDisconnected.Name" xml:space="preserve">
+    <value>Printer disconnected</value>
+  </data>
+  <data name="Events.PrinterDisconnected.Description" xml:space="preserve">
+    <value>The server disconnected from the printer.</value>
+  </data>
+  <data name="Events.PrinterError.Name" xml:space="preserve">
+    <value>Printer error</value>
+  </data>
+  <data name="Events.PrinterError.Description" xml:space="preserve">
+    <value>The printer or its server reported an error.</value>
+  </data>
+  <data name="Events.PrinterEvent.Name" xml:space="preserve">
+    <value>Any printer event</value>
+  </data>
+  <data name="Events.PrinterEvent.Description" xml:space="preserve">
+    <value>Every event the printer server reports, including those of its plugins.</value>
+  </data>
+  <data name="Events.Fields.Printer" xml:space="preserve">
+    <value>Printer</value>
+  </data>
+  <data name="Events.Fields.PrinterId" xml:space="preserve">
+    <value>Printer id</value>
+  </data>
+  <data name="Events.Fields.File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Events.Fields.Duration" xml:space="preserve">
+    <value>Duration (seconds)</value>
+  </data>
+  <data name="Events.Fields.Reason" xml:space="preserve">
+    <value>Reason</value>
+  </data>
+  <data name="Events.Fields.Percent" xml:space="preserve">
+    <value>Percent</value>
+  </data>
+  <data name="Events.Fields.Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Events.Fields.PreviousStatus" xml:space="preserve">
+    <value>Previous status</value>
+  </data>
+  <data name="Events.Fields.Type" xml:space="preserve">
+    <value>Event type</value>
+  </data>
+  <data name="Events.Fields.Payload" xml:space="preserve">
+    <value>Payload (JSON)</value>
+  </data>
+  <data name="Widgets.Status.Name" xml:space="preserve">
+    <value>Printer status</value>
+  </data>
+  <data name="Widgets.Status.Description" xml:space="preserve">
+    <value>Shows what the printer is printing, how far along it is and how long is left.</value>
+  </data>
+  <data name="Widgets.Webcam.Name" xml:space="preserve">
+    <value>Printer webcam</value>
+  </data>
+  <data name="Widgets.Webcam.Description" xml:space="preserve">
+    <value>Shows the printer's webcam, with the print progress on top.</value>
+  </data>
+  <data name="Widgets.Webcam.Fallback" xml:space="preserve">
+    <value>Update Macro Deck to see the webcam.</value>
+  </data>
+  <data name="Widgets.NoPrinter" xml:space="preserve">
+    <value>Set up a printer on the Printer Control integration page.</value>
+  </data>
+  <data name="Widgets.NoPrinterTitle" xml:space="preserve">
+    <value>No printer</value>
+  </data>
+  <data name="Widgets.Temps.Hotend" xml:space="preserve">
+    <value>Hotend {tool}</value>
+  </data>
+  <data name="Widgets.Temps.Bed" xml:space="preserve">
+    <value>Bed {bed}</value>
+  </data>
+  <data name="Widgets.Config.Printer" xml:space="preserve">
+    <value>Printer</value>
+  </data>
+  <data name="Widgets.Config.FirstPrinter" xml:space="preserve">
+    <value>First printer</value>
+  </data>
+  <data name="Widgets.Config.ShowFile" xml:space="preserve">
+    <value>Show the file name while printing</value>
+  </data>
+  <data name="Widgets.Config.ShowEta" xml:space="preserve">
+    <value>Show when the print finishes</value>
+  </data>
+  <data name="Widgets.Config.ShowTemperatures" xml:space="preserve">
+    <value>Show temperatures</value>
+  </data>
+  <data name="Widgets.Config.Overlay" xml:space="preserve">
+    <value>Show the print progress over the picture</value>
+  </data>
+  <data name="Widgets.Config.Fit" xml:space="preserve">
+    <value>Picture</value>
+  </data>
+  <data name="Widgets.Config.FitContain" xml:space="preserve">
+    <value>Show all of it</value>
+  </data>
+  <data name="Widgets.Config.FitCover" xml:space="preserve">
+    <value>Fill the widget</value>
+  </data>
+  <data name="Widgets.Config.Actions" xml:space="preserve">
+    <value>When pressed</value>
+  </data>
+  <data name="Video.ProviderName" xml:space="preserve">
+    <value>Printer webcams</value>
+  </data>
+  <data name="Video.ProviderDescription" xml:space="preserve">
+    <value>The webcam of every printer set up in Printer Control.</value>
+  </data>
+</root>

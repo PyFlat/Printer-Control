@@ -1,0 +1,15 @@
+<Project>
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>true</ImplicitUsings>
+        <AnalysisLevel>latest-recommended</AnalysisLevel>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+        <WarningsAsErrors>CS8602</WarningsAsErrors>
+        <!-- On since SDK 3.0.0-beta.15; the flag and the VIDEO_STREAMS #ifs are left to remove. -->
+        <EnableVideoStreams Condition="'$(EnableVideoStreams)' == ''">true</EnableVideoStreams>
+        <DefineConstants Condition="'$(EnableVideoStreams)' == 'true'">$(DefineConstants);VIDEO_STREAMS</DefineConstants>
+    </PropertyGroup>
+
+</Project>

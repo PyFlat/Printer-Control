@@ -1,0 +1,50 @@
+{
+  "$schema": "https://schemas.macro-deck.app/plugin-manifest-v1.schema.json",
+  "manifestVersion": 1,
+  "id": "com.pyflat.printer-control",
+  "name": "Printer Control",
+  "version": "1.0.0",
+  "description": "Watch and control your 3D printers through OctoPrint: live print progress, temperatures and events, pause, resume, cancel, preheat, move, G-code and lights, with a print status widget, the webcam and temperature variables for the history graph.",
+  "icon": "Assets/icon.svg",
+  "entrypoints": {
+    "win-x64": {
+      "executable": "runtimes/win-x64/PrinterControl.dll",
+      "runtime": {
+        "kind": "FrameworkDependent",
+        "dotnetVersion": "10.0"
+      }
+    },
+    "osx-arm64": {
+      "executable": "runtimes/osx-arm64/PrinterControl.dll",
+      "runtime": {
+        "kind": "FrameworkDependent",
+        "dotnetVersion": "10.0"
+      }
+    },
+    "linux-x64": {
+      "executable": "runtimes/linux-x64/PrinterControl.dll",
+      "runtime": {
+        "kind": "FrameworkDependent",
+        "dotnetVersion": "10.0"
+      }
+    }
+  },
+  "publisher": {
+    "name": "PyFlat"
+  },
+  "license": "MIT",
+  "permissions": [
+    "events:publish",
+    "net:outbound",
+    "host:video-streams"
+  ],
+  "ai": {
+    "interaction": false,
+    "generatedContent": false,
+    "generatedAssets": true
+  },
+  "compatibility": {
+    "macroDeck": ">=3.0.0-beta.15"
+  },
+  "repository": "https://github.com/PyFlat/Printer-Control"
+}

@@ -1,0 +1,147 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to release, e.g. v1.0.19 (must already exist and point at the commit to ship)"
+        required: true
+
+permissions:
+  contents: write
+
+env:
+  CLI_VERSION: 3.0.0-beta.15
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+
+    steps:
+      - name: Determine tag and version
+        id: tag
+        run: |
+          tag="${{ github.event.inputs.tag }}"
+          if [ -z "$tag" ]; then
+            tag="${GITHUB_REF_NAME}"
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "version=${tag#v}" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.tag.outputs.tag }}
+
+      - name: Verify manifest.json version matches the tag
+        run: |
+          manifestVersion=$(jq -r .version src/PrinterControl/manifest.json)
+          if [ "$manifestVersion" != "${{ steps.tag.outputs.version }}" ]; then
+            echo "::error::manifest.json version ($manifestVersion) does not match tag ${{ steps.tag.outputs.tag }}. Bump manifest.json's version, commit that, then tag the new commit."
+            exit 1
+          fi
+
+  build:
+    needs: version
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - rid: win-x64
+            os: windows-latest
+          - rid: osx-arm64
+            os: macos-latest
+          - rid: linux-x64
+            os: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.version.outputs.tag }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Test
+        run: dotnet test PrinterControl.slnx --configuration Release
+
+      - name: Install macrodeck-plugin CLI
+        run: dotnet tool install --global MacroDeck.Plugin.Cli --version ${{ env.CLI_VERSION }}
+
+      - name: Build the ${{ matrix.rid }} package
+        run: macrodeck-plugin build --source src/PrinterControl --rid ${{ matrix.rid }} --output ./artifacts
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: package-${{ matrix.rid }}
+          path: artifacts/*.macroDeckPlugin
+          retention-days: 7
+
+  release:
+    needs: [version, build]
+    runs-on: ubuntu-latest
+    outputs:
+      changelog: ${{ steps.notes.outputs.changelog }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.version.outputs.tag }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: package-*
+          path: parts
+          merge-multiple: true
+
+      - name: Install macrodeck-plugin CLI
+        run: dotnet tool install --global MacroDeck.Plugin.Cli --version ${{ env.CLI_VERSION }}
+
+      - name: Merge the platform packages
+        run: macrodeck-plugin merge parts/*.macroDeckPlugin --output ./artifacts
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ needs.version.outputs.tag }}" ./artifacts/*.macroDeckPlugin \
+            --title "${{ needs.version.outputs.tag }}" \
+            --generate-notes
+
+      - name: Read generated release notes
+        id: notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          {
+            echo "changelog<<EOF_CHANGELOG_$GITHUB_RUN_ID"
+            gh release view "${{ needs.version.outputs.tag }}" --json body -q .body
+            echo "EOF_CHANGELOG_$GITHUB_RUN_ID"
+          } >> "$GITHUB_OUTPUT"
+
+  publish:
+    needs: [version, release]
+    uses: Macro-Deck-App/GitHub-Actions/.github/workflows/publish-plugin.yml@v1
+    permissions:
+      contents: read
+      id-token: write
+    with:
+      version: ${{ needs.version.outputs.tag }}
+      source: src/PrinterControl
+      cli-version: 3.0.0-beta.15
+      changelog: ${{ needs.release.outputs.changelog }}
+      build-per-platform: true
+      # The build job above already ran the tests on every platform.
+      run-tests: false

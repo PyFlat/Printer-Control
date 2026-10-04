@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <!-- Pinned rather than taken from the project file name: manifest.json declares this executable
+             name, and the generated Strings class lives in this namespace. -->
+        <AssemblyName>PrinterControl</AssemblyName>
+        <RootNamespace>PrinterControl</RootNamespace>
+        <IsPackable>false</IsPackable>
+        <UserSecretsId>PrinterControl-PluginDevelopment</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="PrinterControl.Tests" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(EnableVideoStreams)' != 'true'">
+        <Compile Remove="VideoStreams\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MacroDeck.Plugin.Analyzers" PrivateAssets="all" />
+        <PackageReference Include="MacroDeck.Localization" />
+        <PackageReference Include="MacroDeck.Plugin.Hosting" />
+        <PackageReference Include="MacroDeck.Plugin.Serilog" />
+        <PackageReference Include="MacroDeck.Sdk" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="manifest.json" CopyToOutputDirectory="PreserveNewest" />
+        <Content Include="Assets\icon.svg" CopyToOutputDirectory="PreserveNewest" />
+    </ItemGroup>
+
+</Project>
