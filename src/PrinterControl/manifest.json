@@ -3,7 +3,7 @@
   "manifestVersion": 1,
   "id": "com.pyflat.printer-control",
   "name": "Printer Control",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Watch and control your 3D printers through OctoPrint or Moonraker (Klipper with Mainsail or Fluidd): live print progress, temperatures and events, pause, resume, cancel, preheat, move, G-code and lights, with a print status widget, the webcam and temperature variables for the history graph.",
   "icon": "Assets/icon.svg",
   "entrypoints": {
