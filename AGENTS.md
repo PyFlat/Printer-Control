@@ -3,8 +3,7 @@
 **Printer Control** is a Macro Deck 3 out-of-process plugin (Windows, macOS and Linux) that connects Macro
 Deck to 3D printers through the software that runs them: live printer state as variables and events,
 printer control as actions, a print status widget, and the printer webcam as a video stream (SDK
-3.0.0-beta.15). Each kind of printer software is a backend: OctoPrint, and Moonraker on this branch, which
-merges once it has been tested on a real Klipper printer.
+3.0.0-beta.15). Each kind of printer software is a backend: OctoPrint and Moonraker.
 [README.md](README.md) is the user-facing guide; this file is the rule set for changing the code. Keep it
 current when a rule stops matching reality.
 
@@ -100,8 +99,8 @@ backend type leaks into actions, variables, events or the UI.
 - OctoPrint reports a cancel as `PrintCancelled` and again as `PrintFailed` with reason `cancelled`; only
   the first becomes `print-cancelled` (`PushMessages.ReadEvent`).
 
-**Moonraker.** Written against the documented API (https://moonraker.readthedocs.io), not yet tried on
-a real printer.
+**Moonraker.** Written against the documented API (https://moonraker.readthedocs.io) and tested on real
+Klipper printers by a closed tester group.
 
 - Everything after setup goes over the websocket (`MoonrakerRpc`); the API key is in the handshake.
   Klippy's state comes from `server.info` and the `notify_klippy_*` notifications, not from the `webhooks`
