@@ -5,7 +5,7 @@ namespace PrinterControl.Core;
 
 internal sealed record TemperatureProfile(string Name, double? Extruder, double? Bed, double? Chamber);
 
-// Rotation in clockwise degrees.
+// Rotation in clockwise degrees, as Moonraker reports it.
 internal sealed record WebcamSettings(
 	bool Enabled,
 	string? StreamUrl,

@@ -10,6 +10,7 @@ Printer Control talks to the software that runs your printer. Supported today:
 | Printer software | Notes |
 | --- | --- |
 | [OctoPrint](https://octoprint.org) | Everything below. Lights need the GPIO Control plugin. |
+| [Moonraker](https://moonraker.readthedocs.io) (Klipper with Mainsail or Fluidd) | Everything below except connecting and disconnecting the printer, which Klipper does not do. Temperature presets are not read. Lights are Moonraker's power devices. *Start* and *Restart* print the last loaded file again, and *Print a file* can only start a print, not just load the file. |
 
 The plugin is built so more printer software can be added; see
 [Adding printer software](#adding-printer-software). This is an unofficial community plugin, not made or
@@ -22,14 +23,21 @@ Any number of printers can be set up, each with its own server.
 1. Open the Printer Control integration in Macro Deck and add a printer.
 2. Enter the address you open your printer's web interface at, for example `http://octopi.local`.
    Printer Control recognizes the printer software there by itself.
-3. Choose **Approve in OctoPrint**. OctoPrint shows an "Access Request" dialog for Macro Deck in its web
-   interface; choose **Allow** there, then continue in Macro Deck. If the application keys plugin is
-   turned off in your OctoPrint, choose **Paste an API key** instead and create a key in OctoPrint under
-   *Settings > Application Keys*.
+3. Sign in, depending on the printer software:
+   - **OctoPrint:** choose **Approve in OctoPrint**. OctoPrint shows an "Access Request" dialog for Macro
+     Deck in its web interface; choose **Allow** there, then continue in Macro Deck. If the application
+     keys plugin is turned off in your OctoPrint, choose **Paste an API key** instead and create a key in
+     OctoPrint under *Settings > Application Keys*.
+   - **Moonraker:** nothing to do when this computer is one of Moonraker's `trusted_clients` (in
+     `moonraker.conf`, often your whole local network). Otherwise paste Moonraker's API key, which
+     `curl http://localhost:7125/access/api_key` shows on the printer's host.
 
-Leave the name empty to use the printer's own name, the name set in OctoPrint (*Settings > Appearance*).
-The advanced settings of the address step take a different webcam stream; those of OctoPrint's sign-in
-step limit the approval to one OctoPrint user.
+Leave the name empty to use the printer's own name: the name set in OctoPrint (*Settings > Appearance*),
+or the host name of the machine running Klipper. The advanced settings of the address step take a
+different webcam stream; those of OctoPrint's sign-in step limit the approval to one OctoPrint user.
+
+Moonraker's webcam is the first enabled MJPEG webcam it lists; other kinds of streams (WebRTC, HLS)
+cannot be shown, so enter an MJPEG stream address in the advanced settings for those.
 
 ## Widgets
 
@@ -115,13 +123,20 @@ widget and anywhere else Macro Deck shows video.
 ## Privacy
 
 The plugin only talks to the printer servers you set up. While you add a printer, it asks the address you
-entered which printer software runs there (`/api/version`), without credentials. After that:
+entered which printer software runs there (`/api/version` for OctoPrint, `/server/info` for Moonraker),
+without credentials. For OctoPrint:
 
 - the OctoPrint REST API (`/api/...`) to read settings and files and to send your commands,
 - OctoPrint's push socket (`/sockjs/websocket`) for live state,
 - the application keys plugin (`/plugin/appkeys/...`) while you approve Macro Deck,
 - the GPIO Control plugin (`/api/plugin/gpiocontrol`), every 2 seconds while OctoPrint lists GPIO outputs, and
   when you use the switch output action.
+
+For Moonraker:
+
+- `/server/info` and `/printer/info` while you add the printer,
+- Moonraker's websocket (`/websocket`) for everything else: live state, files, webcams, your commands, and
+  its power devices every 2 seconds while it has any.
 
 The webcam is loaded by Macro Deck itself from the webcam address and relayed to your deck devices; it
 does not pass through the plugin. The API key is stored in Macro Deck's encrypted secret store. The plugin

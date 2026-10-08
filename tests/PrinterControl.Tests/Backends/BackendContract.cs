@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using PrinterControl.Backends;
+using PrinterControl.Backends.Moonraker;
 using PrinterControl.Backends.OctoPrint;
 using PrinterControl.Core;
 using PrinterControl.Tests.Backends.Example;
@@ -14,6 +15,7 @@ internal static class AllFakeServers
 	public static IReadOnlyList<(string BackendId, Func<Task<IFakePrinterServer>> Start)> All { get; } =
 	[
 		(OctoPrintBackend.BackendId, async () => await FakeOctoPrint.StartAsync()),
+		(MoonrakerBackend.BackendId, async () => await FakeMoonraker.StartAsync()),
 		(ExampleBackend.BackendId, async () => await ExampleServer.StartAsync()),
 	];
 }

@@ -52,6 +52,36 @@
   <data name="Setup.OctoPrint.SignIn.Description" xml:space="preserve">
     <value>Macro Deck needs access to this OctoPrint to control the printer.</value>
   </data>
+  <data name="Setup.Moonraker.ApiKey.Title" xml:space="preserve">
+    <value>Sign in to Moonraker</value>
+  </data>
+  <data name="Setup.Moonraker.ApiKey.Description" xml:space="preserve">
+    <value>This Moonraker only accepts trusted clients or an API key.</value>
+  </data>
+  <data name="Setup.Moonraker.ApiKey.Label" xml:space="preserve">
+    <value>API key</value>
+  </data>
+  <data name="Setup.Moonraker.ApiKey.Help" xml:space="preserve">
+    <value>Show it on the printer's host with curl http://localhost:7125/access/api_key. Or add this computer to trusted_clients in moonraker.conf, then no key is needed.</value>
+  </data>
+  <data name="Setup.Moonraker.Errors.Unauthorized" xml:space="preserve">
+    <value>Moonraker refused the API key.</value>
+  </data>
+  <data name="Moonraker.Commands.FirmwareRestart" xml:space="preserve">
+    <value>Firmware restart</value>
+  </data>
+  <data name="Moonraker.Commands.RestartKlipper" xml:space="preserve">
+    <value>Restart Klipper</value>
+  </data>
+  <data name="Moonraker.Commands.RestartMoonraker" xml:space="preserve">
+    <value>Restart Moonraker</value>
+  </data>
+  <data name="Moonraker.Commands.Reboot" xml:space="preserve">
+    <value>Reboot the host</value>
+  </data>
+  <data name="Moonraker.Commands.Shutdown" xml:space="preserve">
+    <value>Shut down the host</value>
+  </data>
   <data name="Setup.OctoPrint.Auth.Label" xml:space="preserve">
     <value>Sign in with</value>
   </data>
