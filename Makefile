@@ -1,7 +1,7 @@
 PROJECT  := src/PrinterControl
 MANIFEST := $(PROJECT)/manifest.json
 
-STATE    := $(PROJECT)/.macrodeck-dev-state
+STATE    := $(abspath $(PROJECT)/.macrodeck-dev-state)
 
 UTF8     := $(if $(filter Windows_NT,$(OS)),chcp.com 65001 >/dev/null &&)
 RUN      := $(UTF8) macrodeck-plugin run --project $(PROJECT) --state-directory $(STATE)
